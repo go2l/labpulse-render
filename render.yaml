@@ -1,9 +1,9 @@
 services:
-  - type: static
+  - type: web
     name: labpulse
     env: static
     buildCommand: npm install && npm run build
-    publishPath: dist
+    staticPublishDir: dist
     headers:
       - path: /*
         name: Cache-Control
