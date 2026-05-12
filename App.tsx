@@ -13,6 +13,7 @@ import SummaryModals from './components/SummaryModals';
 import ExperimentDetailsModal from './components/ExperimentDetailsModal';
 import TableAiAssistant from './components/TableAiAssistant';
 import ArchiveModal from './components/ArchiveModal';
+import AdminModal from './components/AdminModal';
 import {
   Experiment,
   Task,
@@ -68,6 +69,7 @@ const App: React.FC = () => {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [summaryType, setSummaryType] = useState<'weekly' | 'monthly' | null>(null);
   const [selectedExperiment, setSelectedExperiment] = useState<Experiment | null>(null);
+  const [adminOpen, setAdminOpen] = useState(false);
 
   // Import State
   const [importCandidate, setImportCandidate] = useState<AppData | null>(null);
@@ -602,15 +604,15 @@ const App: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
             </svg>
           </div>
-        </div>
-        <h2 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">{t.auth.accessDenied}</h2>
-        <p className="text-slate-600 dark:text-slate-300 mb-6">
-          {t.auth.accessDeniedMessage.replace('{email}', user.email || '')}
-        </p>
-        <div className="mt-6 border-t border-slate-200 dark:border-slate-700 pt-4">
-          <button onClick={signOut} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-lg transition-colors">
-            {t.auth.logout}
-          </button>
+          <h2 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">{t.auth.accessDenied}</h2>
+          <p className="text-slate-600 dark:text-slate-300 mb-6">
+            {t.auth.accessDeniedMessage.replace('{email}', user.email || '')}
+          </p>
+          <div className="mt-6 border-t border-slate-200 dark:border-slate-700 pt-4">
+            <button onClick={signOut} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-lg transition-colors">
+              {t.auth.logout}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -682,12 +684,14 @@ const App: React.FC = () => {
         onWeeklySummary={() => setSummaryType('weekly')}
         onMonthlySummary={() => setSummaryType('monthly')}
         onSettings={() => setSettingsOpen(true)}
+        onOpenAdmin={() => setAdminOpen(true)}
         onImport={handleImportJson}
         onExport={handleExportJson}
         onExportCsv={handleExportCsv}
         onOpenArchive={() => setArchiveOpen(true)}
         onJumpToToday={() => setViewOffset(0)}
         viewOffset={viewOffset}
+        isAdmin={!!isWhitelisted}
       />
 
       <main className="flex-1 flex flex-col relative overflow-hidden">
@@ -834,6 +838,10 @@ const App: React.FC = () => {
           onSave={handleSaveSettings}
           onClose={() => setSettingsOpen(false)}
         />
+      )}
+
+      {adminOpen && (
+        <AdminModal onClose={() => setAdminOpen(false)} />
       )}
     </div>
   );

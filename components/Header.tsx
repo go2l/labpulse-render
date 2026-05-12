@@ -14,7 +14,8 @@ import {
   LanguageIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
-  UserCircleIcon
+  UserCircleIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 
 interface HeaderProps {
@@ -22,12 +23,14 @@ interface HeaderProps {
   onWeeklySummary: () => void;
   onMonthlySummary: () => void;
   onSettings: () => void;
+  onOpenAdmin: () => void;
   onImport: () => void;
   onExport: () => void;
   onExportCsv: () => void;
   onOpenArchive: () => void;
   onJumpToToday: () => void;
   viewOffset: number;
+  isAdmin?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -35,12 +38,14 @@ const Header: React.FC<HeaderProps> = ({
   onWeeklySummary,
   onMonthlySummary,
   onSettings,
+  onOpenAdmin,
   onImport,
   onExport,
   onExportCsv,
   onOpenArchive,
   onJumpToToday,
-  viewOffset
+  viewOffset,
+  isAdmin
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const { t, language, toggleLanguage } = useLanguage();
@@ -112,6 +117,12 @@ const Header: React.FC<HeaderProps> = ({
           </button>
 
           <div className="h-6 w-px bg-slate-200 dark:bg-slate-600 mx-2"></div>
+
+          {(user?.email?.toLowerCase() === 'ohad126@gmail.com' || isAdmin) && (
+            <button onClick={onOpenAdmin} className="p-2 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors mr-1" title="Admin Panel (Whitelist)">
+              <ShieldCheckIcon className="w-6 h-6" />
+            </button>
+          )}
 
           <button onClick={onSettings} className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title={t.header.settings}>
             <Cog6ToothIcon className="w-6 h-6" />
