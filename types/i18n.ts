@@ -351,4 +351,20 @@ export interface TranslationDictionary {
         noDescription: string;
         title: string;
     };
+    admin: {
+        title: string;
+        addUser: string;
+        emailPlaceholder: string;
+        email: string;
+        status: string;
+        actions: string;
+        enabled: string;
+        disabled: string;
+        remove: string;
+        autoApprovedOwner: string;
+        userAdded: string;
+        userRemoved: string;
+        userToggled: string;
+        error: string;
+    };
 }

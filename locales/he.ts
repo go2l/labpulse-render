@@ -354,4 +354,20 @@ export const he: TranslationDictionary = {
         created: 'נוצר',
         noDescription: 'ללא תיאור',
     },
+    admin: {
+        title: 'ניהול הרשאות משתמשים (Whitelist)',
+        addUser: 'הוסף משתמש',
+        emailPlaceholder: 'הכנס כתובת אימייל...',
+        email: 'אימייל',
+        status: 'סטטוס',
+        actions: 'פעולות',
+        enabled: 'מאושר',
+        disabled: 'חסום',
+        remove: 'הסר גישה',
+        autoApprovedOwner: 'מנהל מערכת (מאושר אוטומטית)',
+        userAdded: 'משתמש נוסף בהצלחה',
+        userRemoved: 'משתמש הוסר',
+        userToggled: 'סטטוס משתמש עודכן',
+        error: 'שגיאה בעדכון רשימת המורשים'
+    }
 };

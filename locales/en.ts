@@ -354,4 +354,20 @@ export const en: TranslationDictionary = {
         created: 'Created',
         noDescription: 'No description',
     },
+    admin: {
+        title: 'User Management (Whitelist)',
+        addUser: 'Add User',
+        emailPlaceholder: 'Enter email address...',
+        email: 'Email',
+        status: 'Status',
+        actions: 'Actions',
+        enabled: 'Enabled',
+        disabled: 'Disabled',
+        remove: 'Remove',
+        autoApprovedOwner: 'System Owner (Auto-approved)',
+        userAdded: 'User added successfully',
+        userRemoved: 'User removed',
+        userToggled: 'User status updated',
+        error: 'An error occurred while updating the whitelist'
+    }
 };
