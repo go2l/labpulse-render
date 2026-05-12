@@ -65,3 +65,54 @@ export const checkIfWhitelisted = async (email: string): Promise<boolean> => {
         return false;
     }
 };
+
+export interface WhitelistedUser {
+    email: string;
+    enabled: boolean;
+}
+
+export const getWhitelistedUsers = async (): Promise<WhitelistedUser[]> => {
+    try {
+        const { getDocs, collection } = await import('firebase/firestore');
+        const querySnapshot = await getDocs(collection(db, 'whitelisted_users'));
+        const users: WhitelistedUser[] = [];
+        querySnapshot.forEach((doc) => {
+            users.push({ email: doc.id, enabled: doc.data().enabled });
+        });
+        return users;
+    } catch (error) {
+        console.error("Error getting whitelisted users:", error);
+        return [];
+    }
+};
+
+export const addWhitelistedUser = async (email: string): Promise<void> => {
+    try {
+        const whitelistRef = doc(db, 'whitelisted_users', email.toLowerCase());
+        await setDoc(whitelistRef, { enabled: true });
+    } catch (error) {
+        console.error("Error adding whitelisted user:", error);
+        throw error;
+    }
+};
+
+export const removeWhitelistedUser = async (email: string): Promise<void> => {
+    try {
+        const { deleteDoc } = await import('firebase/firestore');
+        const whitelistRef = doc(db, 'whitelisted_users', email.toLowerCase());
+        await deleteDoc(whitelistRef);
+    } catch (error) {
+        console.error("Error removing whitelisted user:", error);
+        throw error;
+    }
+};
+
+export const toggleWhitelistedUser = async (email: string, enabled: boolean): Promise<void> => {
+    try {
+        const whitelistRef = doc(db, 'whitelisted_users', email.toLowerCase());
+        await updateDoc(whitelistRef, { enabled });
+    } catch (error) {
+        console.error("Error toggling whitelisted user:", error);
+        throw error;
+    }
+};
